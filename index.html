@@ -1,180 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yunus Emre Oflaz | Portfolio</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yunus Emre Oflaz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      background: #2b2d42;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.8em;
-    }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
 
-    header p,
-    header a {
-      font-size: 1em;
-      color: #ddd;
-    }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            z-index: 2;
+        }
 
-    a {
-      color: #1e90ff;
-      text-decoration: none;
-    }
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #888;
+            margin-bottom: 1.5rem;
+        }
 
-    main {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
 
-    section {
-      margin-bottom: 50px;
-    }
+        .links {
+            margin-top: 2rem;
+        }
 
-    h2 {
-      color: #2b2d42;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
+        .links a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 1rem;
+            transition: opacity 0.3s;
+        }
 
-    ul {
-      padding-left: 20px;
-    }
+        .links a:hover {
+            opacity: 0.7;
+        }
 
-    .highlight {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      align-items: flex-start;
-    }
+        .cat-container {
+            width: 40%;
+            background: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .highlight img {
-      max-width: 100%;
-      width: 250px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+        .cat-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+            filter: brightness(0.9);
+            position: relative;
+        }
 
-    .qualities {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 15px;
-    }
+        .loading-spinner {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 60px;
+            height: 60px;
+        }
 
-    .qualities span {
-      background: #e0ecff;
-      color: #003366;
-      padding: 8px 12px;
-      border-radius: 20px;
-      font-size: 0.9em;
-    }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      background-color: #f0f0f0;
-      color: #777;
-      border-top: 1px solid #ccc;
-    }
-  </style>
+        .spinner-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff;
+            animation: spin 1.2s linear infinite;
+        }
+
+        .spinner-dot:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; opacity: 1; }
+        .spinner-dot:nth-child(2) { top: 8px; right: 8px; animation-delay: 0.15s; opacity: 0.875; }
+        .spinner-dot:nth-child(3) { top: 50%; right: 0; transform: translateY(-50%); animation-delay: 0.3s; opacity: 0.75; }
+        .spinner-dot:nth-child(4) { bottom: 8px; right: 8px; animation-delay: 0.45s; opacity: 0.625; }
+        .spinner-dot:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 0.6s; opacity: 0.5; }
+        .spinner-dot:nth-child(6) { bottom: 8px; left: 8px; animation-delay: 0.75s; opacity: 0.375; }
+        .spinner-dot:nth-child(7) { top: 50%; left: 0; transform: translateY(-50%); animation-delay: 0.9s; opacity: 0.25; }
+        .spinner-dot:nth-child(8) { top: 8px; left: 8px; animation-delay: 1.05s; opacity: 0.125; }
+
+        @keyframes spin {
+            0% { opacity: 1; }
+            100% { opacity: 0.1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .cat-container {
+                width: 100%;
+                height: 30vh;
+            }
+
+            .cat-image {
+                transform: scaleX(-1);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Yunus Emre Oflaz</h1>
-    <p>Email: yunusemreoflaz@hotmail.com</p>
-    <p><a href="https://github.com/ketronyun" target="_blank">GitHub Profile</a></p>
-  </header>
-
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <div class="highlight">
-        <img src="images/profile.jpg" alt="Yunus Emre Oflaz" />
-        <div>
-          <p>
-            Hello, I'm <strong>Yunus Emre Oflaz</strong> — a passionate software developer focused on backend technologies and embedded systems. 
-            I have an associate degree in <strong>Computer Programming</strong> from Karabük University, and I love solving real-world problems through code.
-          </p>
-          <p>
-            My main interests lie in <strong>Java</strong>, <strong>C#</strong>, and <strong>PHP</strong>, but I also work with <strong>Arduino</strong> 
-            to bring hardware and software together. From managing hotel access systems to deploying game servers, I enjoy crafting solutions that work.
-          </p>
-          <p>
-            I’m continuously learning, currently exploring <strong>c++</strong> and <strong>Cyber</strong>. 
-            I believe in clean code, strong documentation, and lifelong learning.
-            My deep passion for software development and my desire to find practical solutions to the challenges I face enable me to create unique and functional
-            applications. I increase my professional competencies by discovering and integrating innovative features in each new project. I am extremely focused 
-            on achieving the goals I set and completing my projects successfully. I am very pleased to contribute to the community by giving Unity lessons at 
-            Karabük GSB and participating in various volunteering activities.
-          </p>
-          <div class="qualities">
-            <span>Backend Developer</span>
-            <span>Arduino Enthusiast</span>
-            <span>Team-Oriented</span>
-            <span>Detail-Focused</span>
-            <span>Always Learning</span>
-          </div>
+    <div class="container">
+        <div class="content">
+            <h1>Yunus Emre Oflaz</h1>
+            <h2>Backend Developer</h2>
+            <p>Backend Developer from Turkey<br>Currently available for work.</p>
+            <div class="links">
+                <a href="https://github.com" target="_blank">GitHub</a>
+                <a href="https://twitter.com" target="_blank">Twitter</a>
+            </div>
         </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Skills</h2>
-      <ul>
-        <li>Languages: Java, C#, PHP</li>
-        <li>Tools: Arduino, Unity, Git</li>
-        <li>Other: Backend Development, Game Server Management</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Projects</h2>
-      <ul>
-        <li><a href="https://github.com/ketronyun/">More on GitHub...</a></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Certificates</h2>
-      <ul>
-        <li>C# – 2024</li>
-        <li>Java – 2025</li>
-        <li>PHP – 2025</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Education</h2>
-      <p>Associate Degree in Computer Programming<br />
-      Karabük University – TOBB Vocational School of Higher Education (2024–2025)</p>
-    </section>
-  </main>
-
-  <footer>
-    © 2025 Yunus Emre Oflaz | Portfolio
-  </footer>
+        <div class="cat-container">
+            <div class="loading-spinner">
+                <div class="spinner">
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                </div>
+            </div>
+            <img src="onlycat.png" alt="Cat" class="cat-image">
+        </div>
+    </div>
 </body>
 </html>
