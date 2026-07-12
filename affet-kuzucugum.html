@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sana Bir Şey Sormak İstiyorum 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 25%, #ffc0cb 50%, #ff85a2 75%, #ffb3d9 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart-float {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.4;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      max-width: 520px;
+      width: 95%;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      box-shadow:
+        0 20px 60px rgba(255, 105, 180, 0.35),
+        0 0 0 3px rgba(255, 182, 193, 0.6);
+      animation: cardPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes cardPulse {
+      0%, 100% { box-shadow: 0 20px 60px rgba(255, 105, 180, 0.35), 0 0 0 3px rgba(255, 182, 193, 0.6); }
+      50% { box-shadow: 0 25px 70px rgba(255, 105, 180, 0.5), 0 0 0 5px rgba(255, 182, 193, 0.8); }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      color: #d63384;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+      text-shadow: 2px 2px 8px rgba(255, 105, 180, 0.3);
+    }
+
+    .hamster-img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 24px rgba(214, 51, 132, 0.25);
+      object-fit: cover;
+    }
+
+    .buttons-area {
+      position: relative;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 50px;
+      padding: 0.85rem 2rem;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .btn-evet {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+      z-index: 2;
+      transform-origin: center;
+      transition: transform 0.3s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-evet:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 28px rgba(255, 20, 147, 0.55);
+    }
+
+    .btn-hayir {
+      background: linear-gradient(135deg, #e8e8e8, #d0d0d0);
+      color: #888;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      z-index: 3;
+      transition: left 0.15s ease, top 0.15s ease;
+    }
+
+    .celebration {
+      display: none;
+      animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .celebration.show {
+      display: block;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .celebration h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      color: #ff1493;
+      text-shadow: 3px 3px 12px rgba(255, 20, 147, 0.4);
+      margin-bottom: 0.5rem;
+    }
+
+    .celebration p {
+      font-size: 1.2rem;
+      color: #d63384;
+      font-weight: 600;
+    }
+
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 100;
+      font-size: 1.5rem;
+      animation: confettiFall 2s ease-out forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .question-view.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="question-view" id="questionView">
+        <h1>Beni affeder misin kuzucuğum? 💕</h1>
+
+        <img src="hamster.png" alt="Üzgün hamster" class="hamster-img">
+
+        <div class="buttons-area" id="buttonsArea">
+          <button class="btn btn-evet" id="btnEvet">Evet 💖</button>
+          <button class="btn btn-hayir" id="btnHayir">Hayır</button>
+        </div>
+      </div>
+
+      <div class="celebration" id="celebration">
+        <h2>Olur! 🎉</h2>
+        <p>Seni çok seviyorum kuzucuğum! 💕🥰</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const heartsBg = document.getElementById('heartsBg');
+    const hearts = ['💕', '💖', '💗', '💓', '💘', '🩷', '❤️'];
+
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart-float';
+      heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+      heart.style.animationDelay = Math.random() * 8 + 's';
+      heartsBg.appendChild(heart);
+    }
+
+    const btnEvet = document.getElementById('btnEvet');
+    const btnHayir = document.getElementById('btnHayir');
+    const buttonsArea = document.getElementById('buttonsArea');
+    const questionView = document.getElementById('questionView');
+    const celebration = document.getElementById('celebration');
+
+    let evetScale = 1;
+    let hayirClickCount = 0;
+
+    function moveHayirButton() {
+      const area = buttonsArea.getBoundingClientRect();
+      const btn = btnHayir.getBoundingClientRect();
+      const padding = 10;
+
+      const maxX = area.width - btn.width - padding;
+      const maxY = area.height - btn.height - padding;
+
+      const newX = Math.random() * Math.max(maxX, 0);
+      const newY = Math.random() * Math.max(maxY, 0);
+
+      btnHayir.style.left = newX + 'px';
+      btnHayir.style.top = newY + 'px';
+    }
+
+    btnHayir.addEventListener('mouseenter', moveHayirButton);
+    btnHayir.addEventListener('click', (e) => {
+      e.preventDefault();
+      hayirClickCount++;
+      evetScale += 0.25;
+      btnEvet.style.transform = `scale(${evetScale})`;
+      moveHayirButton();
+    });
+
+    btnHayir.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      hayirClickCount++;
+      evetScale += 0.25;
+      btnEvet.style.transform = `scale(${evetScale})`;
+      moveHayirButton();
+    });
+
+    btnEvet.addEventListener('click', () => {
+      questionView.classList.add('hidden');
+      celebration.classList.add('show');
+      spawnConfetti();
+    });
+
+    function spawnConfetti() {
+      const items = ['💕', '💖', '🎉', '✨', '🥰', '💗', '🩷', '❤️'];
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'confetti';
+          el.textContent = items[Math.floor(Math.random() * items.length)];
+          el.style.left = Math.random() * 100 + 'vw';
+          el.style.top = '-20px';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 2000);
+        }, i * 60);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      btnHayir.style.position = 'absolute';
+      moveHayirButton();
+    });
+  </script>
+</body>
+</html>
